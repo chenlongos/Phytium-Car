@@ -3,20 +3,42 @@
 - Qemu GitHub 网址：<https://github.com/qemu/qemu>
 - Qemu 使用手册：<https://www.qemu.org/docs/master/system/index.html>
 
-1. 安装 qemu:
+1. 克隆这个仓库来生成新的qemu支持树莓派4
 
-   ```shell
-   git clone https://git.qemu.org/git/qemu.git --depth 1
+   ```
+   git clone https://github.com/0xMirasio/qemu-patch-raspberry4.git
+   ```
+   ```
+   root@uBuntu:~/Github/Chenlong# git clone https://github.com/0xMirasio/qemu-patch-raspberry4
+   Cloning into 'qemu-patch-raspberry4'...
+   remote: Enumerating objects: 605399, done.
+   remote: Counting objects: 100% (1/1), done.
+   remote: Total 605399 (delta 0), reused 0 (delta 0), pack-reused 605398
+   Receiving objects: 100% (605399/605399), 360.98 MiB | 11.84 MiB/s, done.
+   Resolving deltas: 100% (489320/489320), done.
+   root@uBuntu:~/Github/Chenlong# cd qemu-patch-raspberry4/
+   root@uBuntu:~/Github/Chenlong/qemu-patch-raspberry4# ls
+   accel           common-user    dtc                   io             memory_ldst.c.inc  page-vary-common.c    qemu-keymap.c    scripts         trace
+   audio           configs        dump                  iothread.c     meson              pc-bios               qemu-nbd.c       scsi            trace-events
+   authz           configure      ebpf                  job.c          meson.build        plugins               qemu.nsi         semihosting     ui
+   backends        contrib        fpu                   job-qmp.c      meson_options.txt  po                    qemu-options.hx  slirp           util
+   block           COPYING        fsdev                 Kconfig        migration          python                qemu.sasl        softmmu         VERSION
+   block.c         COPYING.LIB    gdbstub.c             Kconfig.host   module-common.c    qapi                  qga              storage-daemon  version.rc
+   blockdev.c      cpu.c          gdb-xml               libdecnumber   monitor            qemu-bridge-helper.c  qobject          stubs
+   blockdev-nbd.c  cpus-common.c  gitdm.config          LICENSE        nbd                qemu-edid.c           qom              subprojects
+   blockjob.c      crypto         hmp-commands.hx       linux-headers  net                qemu-img.c            README.rst       target
+   bsd-user        disas          hmp-commands-info.hx  linux-user     os-posix.c         qemu-img-cmds.hx      replay           tcg
+   capstone        disas.c        hw                    MAINTAINERS    os-win32.c         qemu-io.c             replication.c    tests
+   chardev         docs           include               Makefile       page-vary.c        qemu-io-cmds.c        roms             tools
    ```
 
-2. 安装依赖:
+2. 然后，执行以下操作进行编译：
 
    ```shell
-   sudo apt install ninja-build
-   sudo apt install build-essential
-   sudo apt install pkg-config
-   sudo apt-get install libglib2.0-dev
-   sudo apt-get install libpixman-1-dev
+   root@uBuntu:~/Github/Chenlong/qemu-patch-raspberry4# mkdir build
+   root@uBuntu:~/Github/Chenlong/qemu-patch-raspberry4# cd build/
+   root@uBuntu:~/Github/Chenlong/qemu-patch-raspberry4/build# ../configure
+   root@uBuntu:~/Github/Chenlong/qemu-patch-raspberry4/build# make
    ```
 
 3. 将 Qemu 目录下 build 目录加入进`PATH`环境变量
