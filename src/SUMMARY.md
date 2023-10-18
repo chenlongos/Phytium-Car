@@ -5,7 +5,7 @@
   - [任务一：Qemu 开发环境搭建](./chapter_1.1.md)
   - [任务二：树莓派知识介绍](./chapter_1.2.md)
   - [任务三：qemu 模拟器启动 ArceOS](./chapter_1.3.md)
-  - [任务四：树莓派启动流程](./chapter_1.4.md)
+  - [任务四：树莓派上电启动流程](./chapter_1.4.md)
   - [任务五：树莓派启动 ArecOS](./chapter_1.5.md)
   - [任务六：树莓派驱动小车](./chapter_1.6.md)
 - [第二阶段：Rust编写树莓派串口驱动](./chapter_2.0.md)
