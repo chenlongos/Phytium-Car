@@ -4,7 +4,7 @@ language = "en"
 create-missing = true
 multilingual = false
 src = "src"
-title = "ldd-in-rust-doc"
+title = "raspi4-with-arceos-doc"
 
 [output.html]
-site-url = "/ldd-in-rust-doc/"
+site-url = "/raspi4-with-arceos-doc/"
