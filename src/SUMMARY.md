@@ -1,6 +1,6 @@
 # Summary
 
-- [第一阶段：ArceOS in Qemu 验证](./chapter_1.0.md)
+- [第一阶段：认识树莓派及arceos编译](./chapter_1.0.md)
   - [任务零：Ubuntu 22.04 开发环境搭建](./chapter_1.0.md)
   - [任务一：Qemu 开发环境搭建](./chapter_1.1.md)
   - [任务二：ArceOS 下载、编译和运行](./chapter_1.2.md)
@@ -8,7 +8,7 @@
   - [任务四：ArceOS + 网卡驱动 in Qemu for AArch64 验证](./chapter_1.4.md)
   - [任务五：ArceOS + 网卡驱动 + UDP 发包应用程序 验证](./chapter_1.5.md)
   - [任务六：ArceOS + 网卡驱动 + lwip 网络应用程序 验证](./chapter_1.6.md)
-- [第二阶段：Linux 6.1 in Qemu 验证（5.8-5.20）](./chapter_2.0.md)
+- [第二阶段：Rust编写树莓派串口驱动](./chapter_2.0.md)
   - [任务一：Linux 6.1 in x86/AArch64 编译](./chapter_2.1.md)
   - [任务二：Linux 6.1 在 Qemu for x86/AArch64 中运行](./chapter_2.2.md)
   - [任务三：Linux 6.1 + 网卡驱动 在 Qemu for x86/AArch64 中运行](./chapter_2.3.md)
