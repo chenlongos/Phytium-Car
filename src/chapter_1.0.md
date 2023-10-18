@@ -1,11 +1,11 @@
-# 第一阶段：ArceOS in Qemu 验证（4.24-5.1）
+# 第一阶段：认识树莓派及ArceOS编译
 
 ## 任务零：Ubuntu 22.04 开发环境搭建
 
 1. 在 Windows 上安装 WSL
    - 参考链接：<https://learn.microsoft.com/zh-cn/windows/wsl/install#troubleshooting-installation>
    - 如果出现问题，参考链接：<https://learn.microsoft.com/zh-cn/windows/wsl/install-manual>
-2. 安装 Ubuntu-22.04。
+2. 安装 Ubuntu-22.04
    - 安装过程详见 1.1 中链接。以下是可安装的有效分发的列表：
 
 | NAME                                | FRIENDLY NAME                       |
