@@ -20,7 +20,7 @@
    cat ../rust-raspberrypi-OS-tutorials/06_uart_chainloader/kernel8.img apps/helloworld/helloworld_aarch64-raspi4.bin > kernel8.img
    ```
 
-4.  把新生成的 kernel8.img 拷贝到 sd 卡上，重新启动树莓派板子，可以看到上电后输出 miniload 并进入到 arceos helloworld 里
+4. 把新生成的 kernel8.img 拷贝到 sd 卡上，重新启动树莓派板子，可以看到上电后输出 miniload 并进入到 arceos helloworld 里
 
    ```shell
 
