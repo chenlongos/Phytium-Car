@@ -8,7 +8,7 @@
   - [实验三：Qemu 模拟器启动 ArceOS，执行 shell 命令](./chapter_1.5.md)
   - [前置知识二：树莓派配置及启动流程](./chapter_1.6.md)
   - [实验四：树莓派启动 ArceOS，打印 Hello,world](./chapter_1.7.md)
-  - [实验五：树莓派启动 ArceOS，执行 shell 命令](./chapter_1.6.md)
+  - [实验五：树莓派启动 ArceOS，执行 shell 命令](./chapter_1.8.md)
 - [第二阶段：Rust 编写树莓派串口驱动](./chapter_2.0.md)
   - [前置知识一：UART 通信协议](./chapter_2.1.md)
   - [前置知识二：树莓派 GPIO 功能](./chapter_2.2.md)
