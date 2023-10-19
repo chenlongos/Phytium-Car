@@ -14,7 +14,7 @@ make A=apps/helloworld ARCH=aarch64 PLATFORM=aarch64-raspi4 SMP=4
 ./qemu-system-aarch64 -m 2G -smp 4 -cpu cortex-a72 -machine raspi4b2g -nographic -kernel {yourpath}/helloworld_aarch64-raspi4.bin
 ```
 
-3、最后，看到ArceOS在qemu模拟器中成功运行：
+3. 最后，看到ArceOS在qemu模拟器中成功运行：
 
 ```shell
 root@DESKTOP-KO8A4KB:~/qemu-patch-raspberry4/build/arceos# make A=apps/helloworld ARCH=aarch64 PLATFORM=aarch64-raspi4 SMP=4
