@@ -1,4 +1,4 @@
-# 任务二：Linux 6.1 在 Qemu for x86/AArch64 中运行
+# 前置知识二：树莓派 GPIO 功能
 
 **Qemu 模拟器硬件支持**
 
