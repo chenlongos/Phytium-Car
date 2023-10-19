@@ -2,22 +2,21 @@
 
 1. 在ArceOS目录下，输入：
    
-   ```shell
-   make A=apps/cli ARCH=aarch64 PLATFORM=aarch64-raspi4 LOG=debug
-   ```
+```shell
+make A=apps/cli ARCH=aarch64 PLATFORM=aarch64-raspi4 LOG=debug
+```
 
    编译出ArceOS在raspi4 上的镜像。
 
 2. 在qemu模拟器上运行该镜像：
 
-   ```shell
-   ./qemu-system-aarch64 -m 2G -smp 4 -cpu cortex-a72 -machine raspi4b2g -kernel {yourpath}/cli_aarch64-raspi4.bin -nographic
-   ```
+```shell
+./qemu-system-aarch64 -m 2G -smp 4 -cpu cortex-a72 -machine raspi4b2g -kernel {yourpath}/cli_aarch64-raspi4.bin -nographic
+```
 
 3. 看到ArceOS在qemu模拟器中成功运行：
    
-
-   ```shell
+```shell
 
           d8888                            .d88888b.   .d8888b.
          d88888                           d88P" "Y88b d88P  Y88b
@@ -56,7 +55,8 @@
      ldr
      str
    arceos# 
-   ```
+```
+
 
 4. 尝试运行ldr和str命令：
    
