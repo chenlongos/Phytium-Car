@@ -1,4 +1,4 @@
-## 环境准备：Ubuntu 22.04 开发环境搭建
+# 环境准备：Ubuntu 22.04 开发环境搭建
 
 1. 在 Windows 上安装 WSL
    - 参考链接：<https://learn.microsoft.com/zh-cn/windows/wsl/install#troubleshooting-installation>
