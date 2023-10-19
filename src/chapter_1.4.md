@@ -6,9 +6,9 @@
 make A=apps/helloworld ARCH=aarch64 PLATFORM=aarch64-raspi4 SMP=4 
 ```
 
-编译出ArceOS在raspi4 上的一个可执行文件。
+编译出ArceOS在raspi4 上的一个镜像。
 
-2. 在qemu模拟器上运行该文件：
+2. 在qemu模拟器上运行该镜像：
 
 ```shell
 ./qemu-system-aarch64 -m 2G -smp 4 -cpu cortex-a72 -machine raspi4b2g -nographic -kernel {yourpath}/helloworld_aarch64-raspi4.bin
