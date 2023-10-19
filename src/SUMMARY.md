@@ -1,11 +1,11 @@
 # Summary
 
 - [第一阶段：认识树莓派及 ArceOS 编译](./chapter_1.0.md)
-  - [环境准备：Ubuntu 22.04 开发环境搭建](./chapter_1.0.md)
-  - [前置知识一：树莓派知识](./chapter_1.1.md)
-  - [实验一：支持树莓派4b的 Qemu 环境搭建](./chapter_1.2.md)
-  - [实验二：Qemu 模拟器启动 ArceOS，打印 Hello，world](./chapter_1.3.md)
-  - [实验三：Qemu 模拟器启动 ArceOS，执行 shell 命令](./chapter_1.3.md)
+  - [环境准备：Ubuntu 22.04 开发环境搭建](./chapter_1.1.md)
+  - [前置知识一：树莓派知识](./chapter_1.2.md)
+  - [实验一：支持树莓派4b的 Qemu 环境搭建](./chapter_1.3.md)
+  - [实验二：Qemu 模拟器启动 ArceOS，打印 Hello，world](./chapter_1.4.md)
+  - [实验三：Qemu 模拟器启动 ArceOS，执行 shell 命令](./chapter_1.5.md)
   - [前置知识二：树莓派上电启动流程](./chapter_1.4.md)
   - [实验四：树莓派启动 ArceOS，打印 Hello,world](./chapter_1.5.md)
   - [实验五：树莓派启动 ArceOS，执行 shell 命令](./chapter_1.6.md)
