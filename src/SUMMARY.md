@@ -14,6 +14,7 @@
   - [前置知识一：树莓派 GPIO 功能](./chapter_2.1.md)
   - [前置知识二：UART 通信协议](./chapter_2.2.md)
   - [实验一：UART0 的启用](./chapter_2.4.md)
+  - [补充知识：树莓派与小车（STM32）相连](./chapter_2.10.md)
   - [实验二：通过 UART0 驱动小车](./chapter_2.6.md)
   - [实验三：通过 UART0 启用 UART5](./chapter_2.7.md)
   - [实验四：通过 UART0 启用 UART2/3/4](./chapter_2.8.md)
