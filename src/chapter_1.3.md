@@ -1,8 +1,5 @@
 # 实验一：支持树莓派4b的 Qemu 环境搭建
 
-- Qemu GitHub 网址：<https://github.com/qemu/qemu>
-- Qemu 使用手册：<https://www.qemu.org/docs/master/system/index.html>
-
 1. 克隆这个仓库来生成新的 qemu 用来支持树莓派4b
 
    ```
