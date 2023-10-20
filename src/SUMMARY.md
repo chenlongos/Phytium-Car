@@ -12,7 +12,6 @@
 - [第二阶段：Rust 编写树莓派串口驱动](./chapter_2.0.md)
   - [前置知识一：UART 通信协议](./chapter_2.1.md)
   - [前置知识二：树莓派 GPIO 功能](./chapter_2.2.md)
-  - [前置知识三：寄存器](./chapter_2.3.md)
   - [实验一：UART0 的启用](./chapter_2.4.md)
   - [实验二：通过 UART0 驱动小车](./chapter_2.6.md)
   - [实验三：通过 UART0 启用 UART5](./chapter_2.7.md)
