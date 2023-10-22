@@ -47,7 +47,65 @@
      do_str(str_addr6);
      ```
 
-此时，UART5便被成功启用，可以通过UART5来进行数据通信。
+所以，在shell命令的源代码中，添加一个命令 UART ，使得输入 UART 5 便可以启用 UART 5：
+
+```rust
+fn do_UART(args: &str) {
+    match args {
+    "5" =>{
+        let str_addr0 = "ffff0000fe200000 1B";
+        let str_addr1 = "ffff0000fe200004 246c0";
+        let str_addr2 = "ffff0000fe2000e4 55000005";
+        let str_addr3 = "ffff0000fe201424 1A";
+        let str_addr4 = "ffff0000fe201428 3";
+        let str_addr5 = "ffff0000fe20142c 70";
+        let str_addr6 = "ffff0000fe201430 301";
+        //调用str写入函数
+        do_str(str_addr1);
+        do_str(str_addr2);
+        do_str(str_addr3);
+        do_str(str_addr4);
+        do_str(str_addr5);
+        do_str(str_addr6);
+        }
+    _ => {}
+    } 
+}
+```
+
+3. 将以下测试函数添加到shell命令中：
+   
+   ```rust
+   fn do_test(args: &str) {
+           fn delay(seconds: u64) {
+            for i in 1..seconds + 1 {
+                fn fibonacci_recursive(n: u64) -> u64 {
+                    if n == 0 {
+                        return 0;
+                    }
+                    if n == 1 {
+                        return 1;
+                    }
+                    return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2);
+                }
+                fibonacci_recursive(36 + (i % 2));
+            }
+        }
+    if args == "run" {
+        loop {
+            let arges = "ffff0000fe201a00 41";
+            do_str(arges);
+            delay(4);
+        }
+    }
+   }
+   ```
+   
+   再启用UART 5后，运行此命令 test run ,然后将UART 5的TXD、RXD和GND与PC相连，观察输出。
+
+   如果屏幕中会不断地输出字母A，则表示UART5被成功启用，可以通过UART5来进行数据通信。
+
+至此，实验三结束，最终提交屏幕不断打印字母A的截图。
 
 
 
