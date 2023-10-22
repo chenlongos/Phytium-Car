@@ -7,6 +7,8 @@
 
 ![](https://github.com/apengaaa/ROSMASTER-X3/raw/main/First%20Week/picture/%E5%BC%95%E8%84%9A.PNG)
 
+![](https://github.com/apengaaa/ROSMASTER-X3/blob/main/First%20Week/picture/%E6%8E%A5%E7%BA%BF.jpg)
+
 
 再将一根USB串口转换线与连接到树莓派的线相连，其中TXD对应RXD，RXD对应TXD，GND对应GND。（默认情况下，USB串口转换线中黑色代表GND，白色代表RXD，绿色代表TXD，红色不连接）
 
@@ -15,3 +17,5 @@
 以putty为例：
 
 连接类型选择Serial，再将Serial line改为COM3,Speed(波特率)设为115200，最后点击Open即可。
+
+![](https://github.com/apengaaa/ROSMASTER-X3/blob/main/First%20Week/picture/putty.png)
