@@ -1,5 +1,7 @@
 # 实验二：通过 UART0 驱动小车
 
+驱动小车的代码位置：arceos/apps/boards/raspi4/src/main.rs
+
 1. 在ArceOS目录下，输入：
 
    ```shell
@@ -27,6 +29,8 @@
 5. 打开树莓派电源，可以看到小车会走出一个方形的轨迹。
    
 6. 修改代码，改变小车的运动轨迹。
+
+参考资料：https://github.com/orgs/chenlongos/discussions/13#discussion-5604815
 
    
 至此，实验二结束，最终提交小车运行的视频及相关代码。
