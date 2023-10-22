@@ -10,3 +10,6 @@
    
 树莓派主板如下图所示：
 
+
+![示例图片](https://github.com/apengaaa/ROSMASTER-X3/blob/main/First%20Week/picture/%E4%B8%BB%E6%9D%BF.png)
+
