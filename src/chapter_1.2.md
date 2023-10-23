@@ -10,6 +10,6 @@
    
 树莓派主板如下图所示：
 
-![](https://github.com/chenlongos/raspi4-with-arceos-doc/raw/master/src/assert/%E4%B8%BB%E6%9D%BF.png)
+![](assert/主板.png)
 
 
