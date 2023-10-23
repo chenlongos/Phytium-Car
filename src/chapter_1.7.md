@@ -1,5 +1,67 @@
 # 实验四：树莓派启动 ArceOS,打印Hello,world
 
+## 前置知识
+
+### SD卡的配置：
+   * 创建一个名为`boot`的`FAT32`分区
+   * 在SD卡上生成一个名为`config.txt`的文件，并将以下内容写入其中：
+
+    ```
+    arm_64bit=1
+    init_uart_clock=48000000
+    ```
+   * 从[Raspberry Pi firmware repo](https://github.com/raspberrypi/firmware/tree/master/boot)中将以下文件复制到SD卡上：
+     - [fixup4.dat](https://github.com/raspberrypi/firmware/raw/master/boot/fixup4.dat)
+     - [start4.elf](https://github.com/raspberrypi/firmware/raw/master/boot/start4.elf)
+     - [bcm2711-rpi-4-b.dtb](https://github.com/raspberrypi/firmware/raw/master/boot/bcm2711-rpi-4-b.dtb)
+     - ~~[bootcode.bin](https://github.com/raspberrypi/firmware/raw/master/boot/bootcode.bin)~~ （树莓派3需要，4不需要）
+   
+   * 将通过编译生成的`kernel8.img`复制到SD卡上
+       kernel8.img的生成
+       * 首先，克隆这个仓库：
+
+        ```shell
+        git clone https://github.com/chenlongos/rust-raspberrypi-OS-tutorials.git
+        ```
+
+        * 然后，在06_uart_chainloader目录下，执行：
+
+        ```
+        BSP=rpi4 make
+        ```
+
+        便可以看到生成了一个kernel8.img文件。
+   
+### 树莓派上电启动启动流程：
+   * 硬件初始化： 树莓派4上电后，硬件会被初始化，包括CPU、内存、外设等。
+   * GPU加载启动代码（bootcode.bin）： GPU（图形处理单元）是树莓派启动的主要控制器。在启动时，GPU会从SD卡的boot分区加载一个文件，通常是 bootcode.bin。这个文件包含了GPU的启动代码，负责初始化系统硬件，设置内存分配和加载下一阶段的启动代码。
+   * 加载启动配置文件（config.txt）： GPU加载 config.txt 文件，该文件包含了系统的配置信息，比如时钟频率、内存分配等。
+   * 加载启动文件（start4.elf）： GPU加载 start4.elf 文件，它是一个二进制文件，包含了树莓派系统的启动代码，它负责初始化硬件和启动ARM处理器。
+   * 加载设备树文件（bcm2711-rpi-4-b.dtb）：start4.elf文件应该也会去读取设备树文件，然后设置一些基本的参数。
+   * 加载操作系统内核（kernel8.img）： start4.elf 文件会加载操作系统内核，是一个名为 kernel8.img 的文件。这个内核文件是一个裸机可执行文件，包含了操作系统的核心功能。
+   * 初始化和启动操作系统： 内核文件被加载到内存后，GPU将控制权交给ARM处理器，操作系统开始初始化并启动，完成系统的启动过程。
+
+### 树莓派通过串口与主机连接
+
+将三根串口连接线分别了解到编号为6,8,10的三个引脚处。（6号对应的是地线GND，8号对应的是TXD，10号对应的是RXD）
+
+![](assert/引脚.PNG)
+
+![](assert/接线.jpg)
+
+再将一根USB串口转换线与连接到树莓派的线相连，其中TXD对应RXD，RXD对应TXD，GND对应GND。（默认情况下，USB串口转换线中黑色代表GND，白色代表RXD，绿色代表TXD，红色不连接）
+
+### 连接软件的使用
+
+以putty为例：
+
+连接类型选择Serial，再将Serial line改为COM3,Speed(波特率)设为115200，最后点击Open即可。
+
+![](assert/putty.png)
+
+   
+## 实验内容
+
 1. 在ArceOS目录下，输入：
 
    ```shell
@@ -8,7 +70,7 @@
 
    编译出ArceOS在raspi4 上的一个镜像。
 
-2. 根据前置知识二编译生成一个kernel8.img文件：
+2. 编译生成一个kernel8.img文件：
 
    ```shell
    BSP=rpi4 make
@@ -22,7 +84,7 @@
 
 4. 把新生成的 kernel8.img 拷贝到 sd 卡上。
 
-5. 将树莓派与PC相连，打开串口软件。
+5. 将树莓派与PC相连，打开连接软件。
 
 6. 启动树莓派板子，可以看到上电后输出 miniload 并进入到 arceos helloworld 里
 
