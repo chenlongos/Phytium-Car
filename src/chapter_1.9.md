@@ -5,7 +5,7 @@
 
 将三根串口连接线分别了解到编号为6,8,10的三个引脚处。
 
-![](https://github.com/chenlongos/raspi4-with-arceos-doc/blob/master/src/assert/%E5%BC%95%E8%84%9A.PNG)
+![](assert/引脚.PNG)
 
 ![](https://github.com/chenlongos/raspi4-with-arceos-doc/blob/master/src/assert/%E6%8E%A5%E7%BA%BF.jpg?raw=true)
 
