@@ -2,7 +2,17 @@
 
 ***本阶段主要以认识树莓派为主，学会如何编译支持树莓派4b的 Qemu 模拟器、如何在树莓派4b上运行 ArceOS。***
 
-* 前置了解：树莓派相关知识
+## ArceOS：
+
+克隆这个仓库：
+
+```shell
+git clone https://github.com/limingth/arceos.git
+```
+
+生成ArceOS代码仓库。
+
+## 前置了解：树莓派相关知识
 
   树莓派4B（Raspberry Pi 4 Model B）是一款功能强大的单板计算机，由Raspberry Pi基金会推出。它提供了丰富的特性和扩展性，适用于各种项目和应用。以下是与树莓派4B相关的一些知识：
 1.	规格和硬件：树莓派4B采用了Broadcom BCM2711 SoC处理器，具有四个ARM Cortex-A72 CPU核心、VideoCore VI GPU和1GB、2GB或4GB LPDDR4内存选项。它还配备了多个USB 3.0和USB 2.0接口、Gigabit以太网端口、HDMI输出、MicroSD卡槽等。
@@ -15,5 +25,7 @@
 树莓派主板如下图所示：
 
 ![](assert/主板.png)
+
+
 
 
