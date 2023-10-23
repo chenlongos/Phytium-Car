@@ -1,5 +1,11 @@
 # 实验二：通过 UART0 驱动小车
 
+## 补充知识：树莓派如何与小车（STM32）相连
+
+参考：<https://github.com/orgs/chenlongos/discussions/14>
+
+## 实验内容
+
 驱动小车的代码位置：arceos/apps/boards/raspi4/src/main.rs
 
 1. 在ArceOS目录下，输入：
@@ -30,7 +36,11 @@
    
 6. 修改代码，改变小车的运动轨迹。
 
-参考资料：https://github.com/orgs/chenlongos/discussions/13#discussion-5604815
+   可以参考以下资料：
+   
+   <https://github.com/orgs/chenlongos/discussions/13#discussion-5604815>
+
+   
 
    
 至此，实验二结束，最终提交小车运行的视频及相关代码。
