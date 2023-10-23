@@ -7,7 +7,7 @@
 
 ![](assert/引脚.PNG)
 
-![](https://github.com/chenlongos/raspi4-with-arceos-doc/blob/master/src/assert/%E6%8E%A5%E7%BA%BF.jpg?raw=true)
+![](assert/接线.jpg)
 
 
 
@@ -19,5 +19,5 @@
 
 连接类型选择Serial，再将Serial line改为COM3,Speed(波特率)设为115200，最后点击Open即可。
 
-![](https://raw.githubusercontent.com/chenlongos/raspi4-with-arceos-doc/master/src/assert/putty.png)
+![](assert/putty.png)
 
