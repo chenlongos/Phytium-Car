@@ -13,8 +13,9 @@
   - [实验三：通过 UART0 启用 UART5](./chapter_2.3.md)
   - [实验四：通过 UART0 启用 UART2/3/4](./chapter_2.4.md)
   - [实验五：通过 UART0 发送指令，由 UART2/3/4/5 驱动小车](./chapter_2.5.md)
+- [第三阶段：Rust编写树莓派USB驱动](./chapter_3.0.md)
 - [参考资料](./chapter_0.0.md)
-<!-- - [第三阶段：Rust for Linux 驱动验证（5.22-6.1）](./chapter_3.0.md)
+
   <!-- - [任务零：环境搭建 C语言内核模块的编译和测试](./chapter_3.1.md)
   <!-- - [任务一：R4L e10000 网卡驱动代码内核模块编译](./chapter_3.2.md)
   <!-- - [任务二：Linux 6.1 + R4L e10000网卡驱动 在 Qemu 中运行](./chapter_3.3.md)
