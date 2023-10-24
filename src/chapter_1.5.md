@@ -1,4 +1,4 @@
-# 实验五：树莓派启动 ArceOS,执行shell命令
+# (选做)实验五：树莓派启动 ArceOS,执行shell命令
 
 1. 在ArceOS目录下，输入：
    
@@ -22,7 +22,7 @@
 
 4. 把新生成的 kernel8.img 拷贝到 sd 卡上。
 
-5. 将树莓派与PC相连，打开串口软件。
+5. 将树莓派与PC相连，打开连接软件。
 
 6. 启动树莓派板子，可以看到上电后输出 miniload 并进入到 shell 命令里：
    
@@ -67,24 +67,24 @@
    ```
 
 
-4. 尝试修改ldr命令相关代码（位置arceos/apps/cli/src/cmd.rs）：
+7. 尝试修改ldr命令相关代码（位置arceos/apps/cli/src/cmd.rs）：
 
-   * 目前的ldr只能以8个字节为间隔来读取地址的值，要求改为以4个字节为间隔来读取地址的值（地址都是以16进制表示的）
-   
-   * 目前的ldr只能将完整的地址输入进去才能输出，要求改为输入一个地址加一个数字，可以直接输出一排相邻地址的值（起始的值为输入的地址的值，输出的值的个数取决于输入的数字，不输入默认为1），例如：
-     
-     
-     ```shell
+   * 目前的ldr只能以8个字节为间隔来读取地址的值，要求改为以4个字节为间隔来读取地址的值（地址都是以16进制表示的），例如：
+
+      ```shell
      arceos# ldr ffff0000fe201000
      ldr
      Value at address 0xffff0000fe201000: 0x31
-     arceos# ldr ffff0000fe201004
+     
+     arceos# ldr ffff0000fe201004   //修改前如果输入ldr ffff0000fe201004 会直接崩溃
      ldr
      Value at address 0xffff0000fe201000: 0x0
      ```
-     
+   
+   * 目前的ldr只能将完整的地址输入进去才能输出，要求改为输入一个地址加一个数字，可以直接输出一排相邻地址的值（起始的值为输入的地址的值，输出的值的个数取决于输入的数字，不输入默认为1），例如：
+
      ```shell
-     arceos# ldr ffff0000fe201000 5
+     arceos# ldr ffff0000fe201000 5 //修改前只能输入ldr ffff0000fe201000 ffff0000fe201008
      ldr
      Value at address 0xffff0000fe201000: 0x31
      Value at address 0xffff0000fe201004: 0x0
@@ -92,8 +92,19 @@
      Value at address 0xffff0000fe20100c: 0x0
      Value at address 0xffff0000fe201010: 0x0
      ```
-     
-5. 尝试输出字母A：
+
+8. 尝试修改str命令相关代码
+
+   目前的str只能以8个字节为间隔来写入地址的值，要求改为以4个字节为间隔来写入地址的值（地址都是以16进制表示的），例如：
+   
+   ```shell
+   arceos# str ffff0000fe201000 123
+   
+   arceos# str ffff0000fe201004 123  //修改前如果输入ldr ffff0000fe201004 会直接崩溃
+
+     ```
+
+9. 尝试输出字母A：
    
 
    尝试向ffff0000fe201000中写入41，使其输出字母A：
