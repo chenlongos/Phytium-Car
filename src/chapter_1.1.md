@@ -75,5 +75,5 @@
    raspi4b1g            Raspberry Pi 4B (revision 1.1)
    raspi4b2g            Raspberry Pi 4B (revision 1.2)
    ```
-至此，实验一结束，最终提交提交实验过程记录（包含出现的各类问题及解决办法）以及执行`qemu-system-aarch64 -M help | grep ras`命令后生成的结果，要求可以看到已经支持树莓派4b了。
+至此，实验一结束，最终提交实验过程记录（包含出现的各类问题及解决办法）以及执行`qemu-system-aarch64 -M help | grep ras`命令后生成的结果，要求可以看到已经支持树莓派4b了。
 
