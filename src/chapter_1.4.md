@@ -125,7 +125,7 @@
    [  9.560792 0 axhal::platform::aarch64_raspi::misc:21] Shutting down...
    ```
 
-至此，实验四结束，最终提交ArceOS成功运行，打印Hello，world的结果。
+至此，实验四结束，最终提交实验过程记录（包含出现的各类问题及解决办法）以及ArceOS成功运行，打印Hello，world的结果。
 
 
 
