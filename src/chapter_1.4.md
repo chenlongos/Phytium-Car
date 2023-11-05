@@ -1,4 +1,4 @@
-# （选做）实验四：树莓派启动 ArceOS,打印Hello,world
+# 实验四：树莓派启动 ArceOS,打印Hello,world
 
 ## 前置知识
 
