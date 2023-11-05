@@ -105,6 +105,8 @@ fn do_UART(args: &str) {
 
    如果屏幕中会不断地输出字母A，则表示UART5被成功启用，可以通过UART5来进行数据通信。
 
+如果没有树莓派，可以查看rust-raspberrypi-OS-tutorials/06_uart_chainloader关于gpio和uart的代码，修改相关代码来启用uart5。
+
 至此，实验三结束，最终提交实验过程记录（包含出现的各类问题及解决办法）以及屏幕不断打印字母A的截图。
 
 
