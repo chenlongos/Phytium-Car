@@ -55,12 +55,13 @@ fn do_UART(args: &str) {
     "5" =>{
         let str_addr0 = "ffff0000fe200000 1B";
         let str_addr1 = "ffff0000fe200004 246c0";
-        let str_addr2 = "ffff0000fe2000e4 55000005";
-        let str_addr3 = "ffff0000fe201424 1A";
-        let str_addr4 = "ffff0000fe201428 3";
-        let str_addr5 = "ffff0000fe20142c 70";
-        let str_addr6 = "ffff0000fe201430 301";
+        let str_addr2 = "ffff0000fe2000e4 55000000";
+        let str_addr3 = "ffff0000fe201a24 1A";
+        let str_addr4 = "ffff0000fe201a28 3";
+        let str_addr5 = "ffff0000fe201a2c 70";
+        let str_addr6 = "ffff0000fe201a30 301";
         //调用str写入函数
+        do_str(str_addr0);
         do_str(str_addr1);
         do_str(str_addr2);
         do_str(str_addr3);
@@ -108,10 +109,3 @@ fn do_UART(args: &str) {
 如果没有树莓派，可以查看rust-raspberrypi-OS-tutorials/06_uart_chainloader关于gpio和uart的代码，修改相关代码来启用uart5。
 
 至此，实验三结束，最终提交实验过程记录（包含出现的各类问题及解决办法）以及屏幕不断打印字母A的截图。
-
-
-
-     
-
-     
-
