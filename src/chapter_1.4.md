@@ -55,7 +55,7 @@
 
 以putty为例：
 
-连接类型选择Serial，再将Serial line改为COM3,Speed(波特率)设为115200，最后点击Open即可。
+连接类型选择Serial，再将Serial line改为COM3（具体需要自己查看）,Speed(波特率)设为115200，最后点击Open即可。
 
 ![](assert/putty.png)
 
@@ -81,6 +81,8 @@
    ```
    cat ../rust-raspberrypi-OS-tutorials/06_uart_chainloader/kernel8.img apps/helloworld/helloworld_aarch64-raspi4.bin > kernel8.img
    ```
+   
+若已有树莓派开发板则进行以下操作：
 
 4. 把新生成的 kernel8.img 拷贝到 sd 卡上。
 
@@ -124,6 +126,55 @@
    [  9.556116 0 axruntime:198] main task exited: exit_code=0
    [  9.560792 0 axhal::platform::aarch64_raspi::misc:21] Shutting down...
    ```
+
+若没有开发板则在qemu模拟器中进行：
+
+4. 在qemu中运行kernel8.img:
+
+   ```shell
+   ./qemu-system-aarch64 -m 2G -smp 4 -cpu cortex-a72 -machine raspi4b2g -nographic -kernel arceos/kernel8.img
+   ```
+
+5. 可以看到输出：
+   ```shell
+   
+          d8888                            .d88888b.   .d8888b.
+         d88888                           d88P" "Y88b d88P  Y88b
+        d88P888                           888     888 Y88b.
+       d88P 888 888d888  .d8888b  .d88b.  888     888  "Y888b.
+      d88P  888 888P"   d88P"    d8P  Y8b 888     888     "Y88b.
+     d88P   888 888     888      88888888 888     888       "888
+    d8888888888 888     Y88b.    Y8b.     Y88b. .d88P Y88b  d88P
+   d88P     888 888      "Y8888P  "Y8888   "Y88888P"   "Y8888P"
+
+   arch = aarch64
+   platform = aarch64-raspi4
+   target = aarch64-unknown-none-softfloat
+   smp = 1
+   build_mode = release
+   log_level = debug 
+   
+   [  0.018980 0 axruntime:126] Logging is enabled.
+   [  0.021262 0 axruntime:127] Primary CPU 0 started, dtb = 0x0.
+   [  0.022619 0 axruntime:129] Found physcial memory regions:
+   [  0.023704 0 axruntime:131]   [PA:0x80000, PA:0x86000) .text (READ | EXECUTE | RESERVED)
+   [  0.025339 0 axruntime:131]   [PA:0x86000, PA:0x88000) .rodata (READ | RESERVED)
+   [  0.026509 0 axruntime:131]   [PA:0x88000, PA:0x8c000) .data .tdata .tbss .percpu (READ | WRITE | RESERVED)
+   [  0.028264 0 axruntime:131]   [PA:0x8c000, PA:0xcc000) boot stack (READ | WRITE | RESERVED)
+   [  0.029420 0 axruntime:131]   [PA:0xcc000, PA:0xcd000) .bss (READ | WRITE | RESERVED)
+   [  0.030306 0 axruntime:131]   [PA:0x0, PA:0x1000) spintable (READ | WRITE | RESERVED)
+   [  0.032056 0 axruntime:131]   [PA:0xcd000, PA:0xfc000000) free memory (READ | WRITE | FREE)
+   [  0.032680 0 axruntime:131]   [PA:0xfe201000, PA:0xfe202000) mmio (READ | WRITE | DEVICE | RESERVED)
+   [  0.033333 0 axruntime:131]   [PA:0xff841000, PA:0xff849000) mmio (READ | WRITE | DEVICE | RESERVED)
+   [  0.034284 0 axruntime:149] Initialize platform devices...
+   [  0.035041 0 axruntime:185] Primary CPU 0 init OK.
+   Hello, world!
+   [  0.036391 0 axruntime:198] main task exited: exit_code=0
+   [  0.037152 0 axhal::platform::aarch64_raspi::misc:21] Shutting down...
+   ```
+
+   （ArceOS上面的内容miniload是原先的kernel8.img里的）
+   
 
 至此，实验四结束，最终提交实验过程记录（包含出现的各类问题及解决办法）以及ArceOS成功运行，打印Hello，world的结果。
 
