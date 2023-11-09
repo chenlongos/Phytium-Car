@@ -40,7 +40,13 @@
    
    <https://github.com/orgs/chenlongos/discussions/13#discussion-5604815>
 
- 如果没有树莓派和小车，可以在qemu模拟器上运行，尝试看到代码的逻辑是可以跑通的。  
+ 若没有小车，可以在qemu模拟器上上运行，
+
+ ```shell
+ ./qemu-system-aarch64 -m 2G -smp 4 -cpu cortex-a72 -machine raspi4b2g -nographic -kernel arceos/kernel8.img
+ ```
+ 
+ 尝试看到代码的逻辑是可以跑通的。  
 
    
 至此，实验二结束，最终提交实验过程记录（包含出现的各类问题及解决办法）以及相关代码。
