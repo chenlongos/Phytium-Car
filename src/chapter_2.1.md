@@ -34,7 +34,7 @@
    [4] Echoing input now
    ```
     
-如果没有树莓派主板，可以在qemu上运行生成的kernel8.img。
+**如果没有树莓派主板，可以在qemu上运行生成的kernel8.img。**
 
    ```shell
    ./qemu-system-aarch64 -m 2G -smp 4 -cpu cortex-a72 -machine raspi4b2g -nographic -kernel rust-raspberrypi-OS-tutorials/05_drivers_gpio_uart/kernel8.img
