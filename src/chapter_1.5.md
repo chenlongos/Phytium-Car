@@ -20,7 +20,7 @@
    cat ../rust-raspberrypi-OS-tutorials/06_uart_chainloader/kernel8.img apps/cli/cli_aarch64-raspi4.bin > kernel8.img
    ```
    
-若已有树莓派开发板则进行以下操作：
+**若已有树莓派开发板则进行以下操作**：
 
 4. 把新生成的 kernel8.img 拷贝到 sd 卡上。
 
@@ -117,7 +117,7 @@
 
    可以看到输出了一个字母A。
 
-若没有开发板则在qemu模拟器中运行：
+**若没有开发板则在qemu模拟器中运行**：
 
 4. 在qemu中运行kernel8.img：
 
