@@ -40,7 +40,7 @@
    
    <https://github.com/orgs/chenlongos/discussions/13#discussion-5604815>
 
- 若没有小车，可以在qemu模拟器上上运行，
+ **若没有小车，可以在qemu模拟器上运行，**
 
  ```shell
  ./qemu-system-aarch64 -m 2G -smp 4 -cpu cortex-a72 -machine raspi4b2g -nographic -kernel arceos/kernel8.img
