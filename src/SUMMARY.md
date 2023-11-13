@@ -14,6 +14,12 @@
   - [实验四：通过 UART0 启用 UART2/3/4](./chapter_2.4.md)
   - [实验五：通过 UART0 发送指令，由 UART2/3/4/5 驱动小车](./chapter_2.5.md)
 - [第三阶段：Rust编写树莓派USB驱动](./chapter_3.0.md)
+  - [任务一：PCI总线初始化](./chapter_3.1.md)
+  - [任务二：PCI总线检测设备，分配内存空间](./chapter_3.2.md)
+  - [任务三：xhci主机控制器初始化](./chapter_3.3.md)
+  - [任务四：xhci检测设备，分配地址空间](./chapter_3.4.md)
+  - [任务五：解析设备配置，加载对应驱动](./chapter_3.5.md)
+  - [任务六：USB转串口的设备驱动实现](./chapter_3.6.md)
 - [参考资料](./chapter_0.0.md)
 
   <!-- - [任务零：环境搭建 C语言内核模块的编译和测试](./chapter_3.1.md)
