@@ -1,6 +1,7 @@
 # 任务一：PCIe总线初始化
 
 ## 何为PCIe
+
 PCIe（Peripheral Component Interconnect Express），是一种高速串行计算机扩展总线标准，用于连接计算机内部的硬件设备。PCIe是PCI的后继者，旨在提供更高的带宽和性能。
 
 关键特点：
@@ -16,15 +17,7 @@ PCIe（Peripheral Component Interconnect Express），是一种高速串行计�
 5. **兼容性：** PCIe是一种通用的总线标准，广泛应用于各种设备，包括显卡、网卡、固态硬盘、扩展卡等。
 
 
-
-
-
-
-
-
-
-
-
+## 初始化实现
 
 参考代码：<https://github.com/Axsl666/arceos>
 
@@ -80,4 +73,187 @@ arceos# [  0.245158 0 brcm_pcie::bcm2711:309] assert bridge reset
 
 arceos# ldr ffff0000fd508000
 Value at address ffff0000fd508000: 0x34831106
+```
+
+## 代码分析
+
+```rust
+//相关寄存器地址及配置
+register_bitfields![
+    u32,
+
+    //  Broadcom STB PCIe Register Offsets
+    // 0x0188
+    RC_CFG_VENDOR_VENDOR_SPECIFIC_REG1 [
+        LITTLE_ENDIAN OFFSET(0) NUMBITS(1) [],
+        ENDIAN_MODE_BAR2 OFFSET(0xC) NUMBITS(1) [],
+    ],
+
+    // 0x043c
+    RC_CFG_PRIV1_ID_VAL3 [
+        CLASS_ID  OFFSET(0) NUMBITS(24) [
+            pcie_pcie_bridge = 0x060400
+        ],
+    ],
+
+    ...
+    
+    RGR1_SW_INIT_1 [
+        PCIE_RGR1_SW_INTI_1_PERST OFFSET(0) NUMBITS(1) [],
+        RGR1_SW_INTI_1_GENERIC OFFSET(1) NUMBITS(1) [],
+    ],
+
+];
+
+...
+
+impl BCM2711PCIeHostBridgeRegs {
+    // 设置桥接器软初始化标志
+    fn bridge_sw_init_set(&self, bit: u32) {
+        // 如果 bit 为 1，将 RGR1_SW_INTI_1_GENERIC 置位
+        if bit == 1 {
+            self.rgr1_sw_init
+                .modify(RGR1_SW_INIT_1::RGR1_SW_INTI_1_GENERIC::SET);
+        }
+        // 如果 bit 为 0，清除 RGR1_SW_INTI_1_GENERIC 位
+        if bit == 0 {
+            self.rgr1_sw_init
+                .modify(RGR1_SW_INIT_1::RGR1_SW_INTI_1_GENERIC::CLEAR);
+        }
+    }
+
+    // 设置 PERST（复位）标志
+    fn perst_set(&self, bit: u32) {
+        // 如果 bit 为 1，将 PCIE_RGR1_SW_INTI_1_PERST 置位
+        if bit == 1 {
+            self.rgr1_sw_init
+                .modify(RGR1_SW_INIT_1::PCIE_RGR1_SW_INTI_1_PERST::SET);
+        }
+        // 如果 bit 为 0，清除 PCIE_RGR1_SW_INTI_1_PERST 位
+        if bit == 0 {
+            self.rgr1_sw_init
+                .modify(RGR1_SW_INIT_1::PCIE_RGR1_SW_INTI_1_PERST::CLEAR);
+        }
+    }
+}
+
+ pub fn setup(&self) {
+    let regs = self.regs();
+
+    // 断言桥复位
+    // 确保 PCIe 控制器处于已知状态,实际上是将 PCIe 控制器的状态置于一个初始值
+    regs.bridge_sw_init_set(1);
+    log::debug!("assert bridge reset");
+
+    // 断言基本复位
+    // 将整个 PCIe 控制器或者相关模块复位到初始状态，以确保系统在初始化开始时处于一种可控制和已知状态
+    regs.perst_set(1);
+    log::debug!("assert fundamental reset");
+
+    H::sleep(core::time::Duration::from_micros(2));
+
+    // 解除桥复位
+    //标志 PCIe 控制器已经完成了一系列的初始化步骤，并且认为 PCIe 控制器已经准备好正常工作
+    regs.bridge_sw_init_set(0);
+    log::debug!("deassert bridge reset");
+
+    H::sleep(core::time::Duration::from_micros(2));
+
+    // 启用 SerDes,确保 PCIe 控制器能够正常进行数据传输
+    regs.misc_hard_pcie_hard_debug
+        .modify(MISC_HARD_PCIE_HARD_DEBUG::SERDES_IDDQ::CLEAR);
+    log::debug!("enable serdes");
+
+    H::sleep(core::time::Duration::from_micros(2));
+
+    // 获取硬件版本
+    let hw_rev = regs.misc_revision.read(MISC_REVISION::MISC_REVISION) & 0xFFFF;
+    log::debug!("hw_rev: {}", hw_rev);
+
+    // 禁用和清除任何挂起的中断,保在 PCIe 控制器初始化的过程中，系统处于一个可控的状态
+    regs.msi_intr2_clr.write(MSI_INTR2_CLR::INTR_CLR::SET);
+    regs.msi_intr2_mask_set
+        .write(MSI_INTR2_MASK_SET::INTR_MASK_SET::SET);
+    log::debug!("disable and clear any pending interrupts");
+
+    // 初始化设置 SCB_MAX_BURST_SIZE 0x0, CFG_READ_UR_MODE, SCB_ACCESS_EN
+    regs.misc_misc_ctrl
+        .modify(MISC_MISC_CTRL::SCB_ACCESS_EN::SET);
+    regs.misc_misc_ctrl
+        .modify(MISC_MISC_CTRL::CFG_READ_UR_MODE::SET);
+    regs.misc_misc_ctrl
+        .modify(MISC_MISC_CTRL::MAX_BURST_SIZE::CLEAR);
+
+    // 设置入站内存视图
+    regs.misc_rc_bar2_config_lo
+        .write(MISC_RC_BAR2_CONFIG_LO::VALUE_LO::init_val);
+    regs.misc_rc_bar2_config_hi
+        .write(MISC_RC_BAR2_CONFIG_HI::VALUE_HI::init_val);
+    regs.misc_misc_ctrl
+        .modify(MISC_MISC_CTRL::SCB0_SIZE::init_val);
+
+    // 禁用 PCIe->GISB 内存窗口和 PCIe->SCB 内存窗口
+    regs.misc_rc_bar1_config_lo
+        .modify(MISC_RC_BAR1_CONFIG_LO::MEM_WIN::CLEAR);
+    regs.misc_rc_bar3_config_lo
+        .modify(MISC_RC_BAR3_CONFIG_LO::MEM_WIN::CLEAR);
+
+    // 设置 MSIs，清除中断，屏蔽中断
+    // CPU::MMIOWrite32(pcieBase + MSI_BAR_CONFIG_LO, (MSI_TARGET_ADDR & 0xFFFFFFFFu) | 1);
+    // CPU::MMIOWrite32(pcieBase + MSI_BAR_CONFIG_HI, MSI_TARGET_ADDR >> 32);
+    // CPU::MMIOWrite32(pcieBase + MSI_DATA_CONFIG, hwRev >= HW_REV_33 ? 0xffe06540 : 0xFFF86540);
+    // TODO: 在此注册 MSI 处理程序
+
+  
+
+    // 解除基本复位
+    // 在确认初始化步骤完成后，将 PCIe 控制器从基本复位状态恢复到正常工作状态
+    regs.perst_set(0);
+
+    // 等待 [0xfd504068] 的位 4 和 5 被设置，每隔 5000 微秒检查一次
+    for _ in 0..20 {
+        let val = regs.misc_pcie_status.read(MISC_PCIE_STATUS::CHECK_BITS);
+        log::trace!("val: {}", val);
+        if val == 0x3 {
+            break;
+        }
+        H::sleep(core::time::Duration::from_micros(5000));
+    }
+
+    // 检查链路是否正常
+    {
+        let val = regs.misc_pcie_status.read(MISC_PCIE_STATUS::CHECK_BITS);
+        if val != 0x3 {
+            panic!("PCIe link is down");
+        }
+    }
+
+    // 检查控制器是否运行在根复杂模式。如果位 7 未设置，则发生错误
+    {
+        let val = regs.misc_pcie_status.read(MISC_PCIE_STATUS::RC_MODE);
+        if val != 0x1 {
+            panic!("PCIe controller is not running in root complex mode");
+        }
+    }
+
+    log::debug!("PCIe link is ready");
+
+    // 配置出站内存
+    // 定义 PCIe 设备可以访问的一块内存区域，使 PCIe 设备可以读取或写入这个内存区域中的数据
+    regs.misc_cpu_2_pcie_mem_win0_lo
+        .write(MISC_CPU_2_PCIE_MEM_WIN0_LO::MEM_WIN0_LO::init_val);
+    regs.misc_cpu_2_pcie_mem_win0_hi
+        .write(MISC_CPU_2_PCIE_MEM_WIN0_HI::MEM_WIN0_HI::init_val);
+    regs.misc_cpu_2_pcie_mem_win0_base_limit
+        .write(MISC_CPU_2_PCIE_MEM_WIN0_BASE_LIMIT::MEM_WIN0_BASE_LIMIT::init_val);
+    regs.misc_cpu_2_pcie_mem_win0_base_hi
+        .write(MISC_CPU_2_PCIE_MEM_WIN0_BASE_HI::MEM_WIN0_BASE_HI::init_val);
+    regs.misc_cpu_2_pcie_mem_win0_limit_hi
+        .write(MISC_CPU_2_PCIE_MEM_WIN0_LIMIT_HI::MEM_WIN0_LIMIT_HI::init_val);
+
+    // 设置正确的 Class ID
+    regs.rc_cfg_priv1_id_val3
+        .modify(RC_CFG_PRIV1_ID_VAL3::CLASS_ID::pcie_pcie_bridge);
+
+}
 ```
