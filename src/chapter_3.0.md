@@ -4,6 +4,10 @@
 
 背景资料：<https://github.com/orgs/chenlongos/discussions/14>
 
+参考资料：
+1. <https://blog.csdn.net/fudan_abc>
+2. ...
+
 大概可以分为以下几步：
 
 1. PCIe总线初始化
