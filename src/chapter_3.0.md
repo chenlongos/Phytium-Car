@@ -6,7 +6,8 @@
 
 参考资料：
 1. <https://blog.csdn.net/fudan_abc>
-2. ...
+2. VL805相关手册：<https://github.com/chenlongos/raspi4-with-arceos-doc/blob/master/src/assert/DS_VLI_VL805_093.pdf>
+3. xhci协议：<https://github.com/chenlongos/raspi4-with-arceos-doc/blob/master/src/assert/extensible-host-controler-interface-usb-xhci.pdf>
 
 大概可以分为以下几步：
 
