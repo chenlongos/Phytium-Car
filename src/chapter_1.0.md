@@ -7,7 +7,7 @@
 克隆这个仓库：
 
 ```shell
-git clone https://github.com/limingth/arceos.git
+https://github.com/chenlongos/arceos
 ```
 
 生成ArceOS代码仓库。
