@@ -4,6 +4,8 @@
 
 ## ArceOS：
 
+[ArceOS实验环境配置](https://rcore-os.cn/arceos-tutorial-book/ch01-00.html)
+
 克隆这个仓库：
 
 ```shell
@@ -12,9 +14,11 @@ https://github.com/chenlongos/arceos
 
 生成ArceOS代码仓库。
 
-[ArceOS实验环境配置](https://rcore-os.cn/arceos-tutorial-book/ch01-00.html)
+
 
 ## 前置了解：树莓派相关知识
+
+[树莓派新手入门手册](https://github.com/chenlongos/raspi4-with-arceos-doc/blob/master/src/assert/%E6%A0%91%E8%8E%93%E6%B4%BE4B%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.pdf)
 
   树莓派4B（Raspberry Pi 4 Model B）是一款功能强大的单板计算机，由Raspberry Pi基金会推出。它提供了丰富的特性和扩展性，适用于各种项目和应用。以下是与树莓派4B相关的一些知识：
 1.	规格和硬件：树莓派4B采用了Broadcom BCM2711 SoC处理器，具有四个ARM Cortex-A72 CPU核心、VideoCore VI GPU和1GB、2GB或4GB LPDDR4内存选项。它还配备了多个USB 3.0和USB 2.0接口、Gigabit以太网端口、HDMI输出、MicroSD卡槽等。
