@@ -12,6 +12,8 @@ https://github.com/chenlongos/arceos
 
 生成ArceOS代码仓库。
 
+[ArceOS实验环境配置](https://rcore-os.cn/arceos-tutorial-book/ch01-00.html)
+
 ## 前置了解：树莓派相关知识
 
   树莓派4B（Raspberry Pi 4 Model B）是一款功能强大的单板计算机，由Raspberry Pi基金会推出。它提供了丰富的特性和扩展性，适用于各种项目和应用。以下是与树莓派4B相关的一些知识：
