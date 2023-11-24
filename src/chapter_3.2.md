@@ -10,7 +10,7 @@
 4. 映射内存空间：将分配的内存空间映射到设备的地址空间中，以便设备可以访问该内存。
 
 
-参考代码仓库：<https://github.com/apengaaa/arceos/tree/raspi4>
+参考代码仓库：<https://github.com/apengaaa/arceos/tree/usb>
 
 运行结果：
 ```shell
