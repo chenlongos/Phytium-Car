@@ -19,7 +19,7 @@ PCIe（Peripheral Component Interconnect Express），是一种高速串行计�
 
 ## 初始化实现
 
-参考代码：<https://github.com/Axsl666/arceos>
+参考代码：<https://github.com/apengaaa/arceos/tree/raspi4>
 
 运行结果：
 
