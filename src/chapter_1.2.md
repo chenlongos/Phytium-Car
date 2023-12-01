@@ -4,7 +4,7 @@
    
    
    ```shell
-   make A=apps/helloworld ARCH=aarch64 PLATFORM=aarch64-raspi4 SMP=4 
+   make A=apps/helloworld ARCH=aarch64 PLATFORM=aarch64-raspi4 SMP=4（如果4核运行不了，可以改为单核） 
    ```
 
    编译出ArceOS在raspi4 上的一个镜像。
