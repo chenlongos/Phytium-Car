@@ -1,5 +1,5 @@
 # Summary
-
+- [学习指南](./chapter_0.md)
 - [USB驱动开发](./chapter_3.0.md)
   - [任务一：PCIe 主桥的初始化](./chapter_3.1.md)
   - [任务二：PCIe 主桥枚举设备，发现 USB 3.0 主机控制器](./chapter_3.2.md)
