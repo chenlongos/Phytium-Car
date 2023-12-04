@@ -4,7 +4,7 @@ language = "en"
 create-missing = true
 multilingual = false
 src = "src"
-title = "raspi4-with-arceos-doc"
+title = "usb-doc"
 
 [output.html]
-site-url = "/raspi4-with-arceos-doc/"
+site-url = "/usb-doc/"
