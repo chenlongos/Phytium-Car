@@ -1,6 +1,6 @@
 # Summary
 
-- [学习指南](./chapter_0.md)
+-
 - [USB驱动开发](./chapter_3.0.md)
   - [任务一：PCIe 主桥的初始化](./chapter_3.1.md)
   - [任务二：PCIe 主桥枚举设备，发现 USB 3.0 主机控制器](./chapter_3.2.md)
@@ -9,6 +9,9 @@
   - [任务五：usb3.0 主机控制器枚举检测设备](./chapter_3.5.md)
   - [任务六：创建 usb 设备的连接和通信](./chapter_3.6.md)
   - [任务七：具体的 usb 设备驱动程序实现](./chapter_3.7.md)
+- [进展分享](./chapter_4.0.md)
+  - [1](./chapter_4.1.md)
+  - [2](./chapter_4.2.md)
 - [参考资料](./chapter_0.0.md)
 
   <!-- - [任务零：环境搭建 C语言内核模块的编译和测试](./chapter_3.1.md)
