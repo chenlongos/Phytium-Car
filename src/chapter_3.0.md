@@ -1,27 +1,20 @@
-# 第三阶段：Rust编写树莓派USB驱动
+# Rust 编写 ArceOS USB驱动
 
-经过第二阶段的了解、学习，可以发现目前如果想要用树莓派驱动小车需要对STM32板子进行飞线处理，而这需要进行焊接，非常的不方便，而且树莓派本身含有许多的USB接口，因此，考虑编写USB转串口驱动。
 
-背景资料：<https://github.com/orgs/chenlongos/discussions/14>
+1. 完成 PCIe 主桥的初始化工作，使得 PCIe 主桥可以正常工作
 
-参考资料：
-1. <https://blog.csdn.net/fudan_abc>
-2. [VL805相关手册](https://github.com/chenlongos/raspi4-with-arceos-doc/blob/master/src/assert/DS_VLI_VL805_093.pdf)
-3. [xhci协议](https://github.com/chenlongos/raspi4-with-arceos-doc/blob/master/src/assert/extensible-host-controler-interface-usb-xhci.pdf)
 
-大概可以分为以下几步：
+2. PCIe 主桥枚举连接到总线上的设备，发现 USB 3.0 主机控制器设备
 
-1. PCIe总线初始化
+3. 对发现的USB3.0主机控制器分配内存空间
 
-2. PCIe检测设备、分配内存空间
+4. USB 3.0 主机控制器的初始化，使得主机控制器可以正常工作
+ 
+5. USB主机控制器枚举和检测插入的 USB 设备
 
-3. XHCI主机控制器初始化
+6. 创建适当的数据结构和数据通路来管理和处理 USB 设备的连接和通信
+   
+7. 实现具体的USB设备驱动程序
 
-4. XHCI检测设备、分配地址空间
-
-5. 解析设备配置，加载对应驱动
-
-6. USB转串口的设备驱动实现
-
-7. 完成技术需求，撰写技术总结文档
+8. 完成技术需求，撰写技术文档
 
