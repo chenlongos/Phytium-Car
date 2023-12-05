@@ -9,8 +9,8 @@
   - [任务六：创建 usb 设备的连接和通信](./chapter_3.6.md)
   - [任务七：具体的 usb 设备驱动程序实现](./chapter_3.7.md)
 - [进展分享](./chapter_4.0.md)
-  - [1](./chapter_4.1.md)
-  - [2](./chapter_4.2.md)
+  - [1.许慎林](./chapter_4.1.md)
+  - [2.姚宏伟](./chapter_4.2.md)
 - [参考资料](./chapter_0.0.md)
 
   <!-- - [任务零：环境搭建 C语言内核模块的编译和测试](./chapter_3.1.md)
