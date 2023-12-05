@@ -119,6 +119,393 @@ f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 
 ### 代码分析
 
+```rust
+#![allow(unused)]
+fn main() {
+//相关寄存器地址及配置
+register_bitfields![
+    u32,
+    //  Broadcom STB PCIe Register Offsets
+    // 0x0188
+    RC_CFG_VENDOR_VENDOR_SPECIFIC_REG1 [
+        LITTLE_ENDIAN OFFSET(0) NUMBITS(1) [],
+        ENDIAN_MODE_BAR2 OFFSET(0xC) NUMBITS(1) [],
+    ],
+
+    // 0x043c
+    RC_CFG_PRIV1_ID_VAL3 [
+        CLASS_ID  OFFSET(0) NUMBITS(24) [
+            pcie_pcie_bridge = 0x060400
+        ],
+    ],
+    // 0x04dc
+    // PCIE_RC_CFG_PRIV1_LINK_CAPABILITY [],
+    // 0x1100
+    // RC_DL_MDIO_ADDR [],
+    // 0x1104
+    // RC_DL_MDIO_WR_DATA [],
+    // 0x1108
+    // RC_DL_MDIO_RD_DATA
+    // 0x4008
+    MISC_MISC_CTRL [
+        SCB_ACCESS_EN OFFSET(12) NUMBITS(1) [],
+        CFG_READ_UR_MODE OFFSET(13) NUMBITS(1) [],
+        MAX_BURST_SIZE OFFSET(20) NUMBITS(2) [],
+        SCB0_SIZE OFFSET(27) NUMBITS(5) [
+            init_val = 0x17,
+        ],
+        SCB1_SIZE OFFSET(22) NUMBITS(5) [],
+        SCB2_SIZE OFFSET(0) NUMBITS(5) [],
+    ],
+    // 0x400c
+    MISC_CPU_2_PCIE_MEM_WIN0_LO [
+        MEM_WIN0_LO OFFSET(0) NUMBITS(32) [
+            // TODO
+            init_val = 0x0000_0000
+        ],
+    ],
+    // 0x4010
+    MISC_CPU_2_PCIE_MEM_WIN0_HI [
+        MEM_WIN0_HI OFFSET(0) NUMBITS(32) [
+            init_val = 0x0000_0006
+        ],
+    ],
+    // 0x4204
+    // 0x402C
+    MISC_RC_BAR1_CONFIG_LO [
+        MEM_WIN OFFSET(0) NUMBITS(5)[]
+    ],
+    // 0x4034
+    MISC_RC_BAR2_CONFIG_LO [
+        VALUE_LO OFFSET(0) NUMBITS(32)[
+            init_val = 0x11,
+        ]
+    ],
+    // 0x4038
+    MISC_RC_BAR2_CONFIG_HI [
+        VALUE_HI OFFSET(0) NUMBITS(32)[
+            init_val = 0x4,
+        ]
+    ],
+    // 0x403C
+    MISC_RC_BAR3_CONFIG_LO [
+        MEM_WIN OFFSET(0) NUMBITS(5)[]
+    ],
+    // 0x4044
+    // MISC_MSI_BAR_CONFIG_LO
+    // 0x4048
+    // MISC_MSI_BAR_CONFIG_HI
+    // 0x404c
+    // MISC_MSI_DATA_CONFIG
+    // 0x4060
+    // MISC_EOI_CTRL
+    // 0x4064
+    // MISC_PCIE_CTRL
+    // 0x4068
+    MISC_PCIE_STATUS [
+        CHECK_BITS OFFSET(4) NUMBITS(2)[],
+        RC_MODE OFFSET(7) NUMBITS(1)[],
+    ],
+    // 0x406c
+    MISC_REVISION [
+        MISC_REVISION OFFSET(0) NUMBITS(32)[]
+    ],
+
+    // 0x4070
+    MISC_CPU_2_PCIE_MEM_WIN0_BASE_LIMIT [
+        MEM_WIN0_BASE_LIMIT OFFSET(0) NUMBITS(32)[
+            // TODO
+            init_val = 0
+        ]
+    ],
+    // 0x4080
+    MISC_CPU_2_PCIE_MEM_WIN0_BASE_HI [
+        MEM_WIN0_BASE_HI OFFSET(0) NUMBITS(32)[
+            init_val = 6
+        ]
+    ],
+    // 0x4084
+    MISC_CPU_2_PCIE_MEM_WIN0_LIMIT_HI [
+        MEM_WIN0_LIMIT_HI OFFSET(0) NUMBITS(32)[
+            init_val = 6
+        ]
+    ],
+    // 0x4204
+    MISC_HARD_PCIE_HARD_DEBUG [
+        CLKREQ_DEBUG_ENABLE OFFSET(0) NUMBITS(1) [],
+        CLKREQ_L1SS_ENABLE OFFSET(21) NUMBITS(1) [],
+        SERDES_IDDQ OFFSET(27) NUMBITS(1) [],
+    ],
+
+    // 0x4300 INTR2_CPU_BASE
+    INTR2_CPU_STATUS [
+        INTR_STATUS OFFSET(0) NUMBITS(32) [],
+    ],
+    // 0x4304 0x4300 + 0x4
+    INTR2_CPU_SET [
+        INTR_SET OFFSET(0) NUMBITS(32) [],
+    ],
+    // 0x4308 0x4300 + 0x8
+    INTR2_CPU_CLR [
+        INTR_CLR OFFSET(0) NUMBITS(32) []
+    ],
+    // 0x430c 0x4300 + 0x0c
+    INTR2_CPU_MASK_STATUS [
+        INTR_MASK_STATUS OFFSET(0) NUMBITS(32) []
+    ],
+    // 0x4310 0x4300 + 0x10
+    INTR2_CPU_MASK_SET [
+        INTR_MASK_SET OFFSET(0) NUMBITS(32) []
+    ],
+    // 0x4314 0x4500 + 0x14
+    INTR2_CPU_MASK_CLR [
+        INTR_MASK_CLR OFFSET(0) NUMBITS(32) []
+    ],
+    // 0x4500 MSI_INTR2_BASE
+    MSI_INTR2_STATUS [
+        INTR_STATUS OFFSET(0) NUMBITS(32) [],
+    ],
+    // 0x4504 0x4500 + 0x4
+    MSI_INTR2_SET [
+        INTR_SET OFFSET(0) NUMBITS(32) [],
+    ],
+    // 0x4508 0x4500 + 0x8
+    MSI_INTR2_CLR [
+        INTR_CLR OFFSET(0) NUMBITS(32) []
+    ],
+    // 0x450c 0x4500 + 0x0c
+    MSI_INTR2_MASK_STATUS [
+        INTR_MASK_STATUS OFFSET(0) NUMBITS(32) []
+    ],
+    // 0x4510 0x4500 + 0x10
+    MSI_INTR2_MASK_SET [
+        INTR_MASK_SET OFFSET(0) NUMBITS(32) []
+    ],
+    // 0x4514 0x4500 + 0x14
+    MSI_INTR2_MASK_CLR [
+        INTR_MASK_CLR OFFSET(0) NUMBITS(32) []
+    ],
+    // 0x8000
+    // EXT_CFG_DATA
+    // 0x9000
+    // EXT_CFG_INDEX
+    // 0x9210
+    RGR1_SW_INIT_1 [
+        PCIE_RGR1_SW_INTI_1_PERST OFFSET(0) NUMBITS(1) [],
+        RGR1_SW_INTI_1_GENERIC OFFSET(1) NUMBITS(1) [],
+    ],
+];
+
+register_structs! {
+    /// Pl011 registers.
+    BCM2711PCIeHostBridgeRegs {
+        (0x00 => _rsvd1),
+        (0x0188 => rc_cfg_vendor_vendor_specific_reg1),
+        (0x043c => rc_cfg_priv1_id_val3: ReadWrite<u32,RC_CFG_PRIV1_ID_VAL3::Register>),
+        (0x0440 => _rsvdd2),
+        (0x1100 => rc_dl_mdio_addr),
+        (0x1104 => rc_dl_mdio_wr_data),
+        (0x1108 => rc_dl_mdio_rd_data),
+        (0x4008 => misc_misc_ctrl: ReadWrite<u32, MISC_MISC_CTRL::Register>),
+        (0x400C => misc_cpu_2_pcie_mem_win0_lo: ReadWrite<u32,MISC_CPU_2_PCIE_MEM_WIN0_LO::Register>),
+        (0x4010 => misc_cpu_2_pcie_mem_win0_hi: ReadWrite<u32,MISC_CPU_2_PCIE_MEM_WIN0_HI::Register>),
+        (0x4014 => _rsvd22),
+        (0x4028 => _rsvd2),
+        (0x402C => misc_rc_bar1_config_lo: ReadWrite<u32,MISC_RC_BAR1_CONFIG_LO::Register>),
+        (0x4030 => _rsvdd),
+        (0x4034 => misc_rc_bar2_config_lo: ReadWrite<u32,MISC_RC_BAR2_CONFIG_LO::Register>),
+        (0x4038 => misc_rc_bar2_config_hi: ReadWrite<u32,MISC_RC_BAR2_CONFIG_HI::Register>),
+        (0x403C => misc_rc_bar3_config_lo: ReadWrite<u32,MISC_RC_BAR3_CONFIG_LO::Register>),
+        (0x4040 => _rsvddd),
+        (0x4044 => misc_msi_bar_config_lo),
+        (0x4048 => misc_msi_bar_config_hi),
+        (0x404c => misc_msi_data_config	),
+        (0x4060 => misc_eoi_ctrl),
+        (0x4064 => misc_pcie_ctrl),
+        (0x4068 => misc_pcie_status: ReadOnly<u32,MISC_PCIE_STATUS::Register>),
+        (0x406C => misc_revision: ReadWrite<u32,MISC_REVISION::Register>),
+        (0x4070 => misc_cpu_2_pcie_mem_win0_base_limit: ReadWrite<u32, MISC_CPU_2_PCIE_MEM_WIN0_BASE_LIMIT::Register>),
+        (0x4074 => hole),
+        (0x4080 => misc_cpu_2_pcie_mem_win0_base_hi: ReadWrite<u32,MISC_CPU_2_PCIE_MEM_WIN0_BASE_HI::Register>),
+        (0x4084 => misc_cpu_2_pcie_mem_win0_limit_hi: ReadWrite<u32,MISC_CPU_2_PCIE_MEM_WIN0_LIMIT_HI::Register>),
+        (0x4088 => hole2),
+        (0x4204 => misc_hard_pcie_hard_debug: ReadWrite<u32,MISC_HARD_PCIE_HARD_DEBUG::Register>),
+        (0x4208 => _rsvd3),
+        /// cpu intr
+        (0x4300 => intr2_cpu_status:        ReadWrite<u32,INTR2_CPU_STATUS::Register>),
+        (0x4304 => intr2_cpu_set:           ReadWrite<u32,INTR2_CPU_SET::Register>),
+        (0x4308 => intr2_cpu_clr:           ReadWrite<u32,INTR2_CPU_CLR::Register>),
+        (0x430C => intr2_cpu_mask_status:   ReadWrite<u32,INTR2_CPU_MASK_STATUS::Register>),
+        (0x4310 => intr2_cpu_mask_set:      ReadWrite<u32,INTR2_CPU_MASK_SET::Register>),
+        (0x4314 => intr2_cpu_mask_clr:      ReadWrite<u32,INTR2_CPU_MASK_CLR::Register>),
+        (0x4318 => hole3),
+        /// msi intr
+        (0x4500 => msi_intr2_status:        ReadWrite<u32,MSI_INTR2_STATUS::Register>),
+        (0x4504 => msi_intr2_set:           ReadWrite<u32,MSI_INTR2_SET::Register>),
+        (0x4508 => msi_intr2_clr:           ReadWrite<u32,MSI_INTR2_CLR::Register>),
+        (0x450C => msi_intr2_mask_status:   ReadWrite<u32,MSI_INTR2_MASK_STATUS::Register>),
+        (0x4510 => msi_intr2_mask_set:      ReadWrite<u32,MSI_INTR2_MASK_SET::Register>),
+        (0x4514 => msi_intr2_mask_clr:      ReadWrite<u32,MSI_INTR2_MASK_CLR::Register>),
+        (0x4518 => hole4),
+        /// Interrupt Clear Register.
+        (0x9210 => rgr1_sw_init: ReadWrite<u32,RGR1_SW_INIT_1::Register>),
+        (0x9214 => _rsvd4),
+        (0x9310 => @END),
+    }
+}
+
+impl BCM2711PCIeHostBridgeRegs {
+    // 设置桥接器软初始化标志
+    fn bridge_sw_init_set(&self, bit: u32) {
+        // 如果 bit 为 1，将 RGR1_SW_INTI_1_GENERIC 置位
+        if bit == 1 {
+            self.rgr1_sw_init
+                .modify(RGR1_SW_INIT_1::RGR1_SW_INTI_1_GENERIC::SET);
+        }
+        // 如果 bit 为 0，清除 RGR1_SW_INTI_1_GENERIC 位
+        if bit == 0 {
+            self.rgr1_sw_init
+                .modify(RGR1_SW_INIT_1::RGR1_SW_INTI_1_GENERIC::CLEAR);
+        }
+    }
+
+    // 设置 PERST（复位）标志
+    fn perst_set(&self, bit: u32) {
+        // 如果 bit 为 1，将 PCIE_RGR1_SW_INTI_1_PERST 置位
+        if bit == 1 {
+            self.rgr1_sw_init
+                .modify(RGR1_SW_INIT_1::PCIE_RGR1_SW_INTI_1_PERST::SET);
+        }
+        // 如果 bit 为 0，清除 PCIE_RGR1_SW_INTI_1_PERST 位
+        if bit == 0 {
+            self.rgr1_sw_init
+                .modify(RGR1_SW_INIT_1::PCIE_RGR1_SW_INTI_1_PERST::CLEAR);
+        }
+    }
+}
+
+ pub fn setup(&self) {
+    let regs = self.regs();
+
+    // 断言桥复位
+    // 确保 PCIe 控制器处于已知状态,实际上是将 PCIe 控制器的状态置于一个初始值
+    regs.bridge_sw_init_set(1);
+    log::debug!("assert bridge reset");
+
+    // 断言基本复位
+    // 将整个 PCIe 控制器或者相关模块复位到初始状态，以确保系统在初始化开始时处于一种可控制和已知状态
+    regs.perst_set(1);
+    log::debug!("assert fundamental reset");
+
+    H::sleep(core::time::Duration::from_micros(2));
+
+    // 解除桥复位
+    //标志 PCIe 控制器已经完成了一系列的初始化步骤，并且认为 PCIe 控制器已经准备好正常工作
+    regs.bridge_sw_init_set(0);
+    log::debug!("deassert bridge reset");
+
+    H::sleep(core::time::Duration::from_micros(2));
+
+    // 启用 SerDes,确保 PCIe 控制器能够正常进行数据传输
+    regs.misc_hard_pcie_hard_debug
+        .modify(MISC_HARD_PCIE_HARD_DEBUG::SERDES_IDDQ::CLEAR);
+    log::debug!("enable serdes");
+
+    H::sleep(core::time::Duration::from_micros(2));
+
+    // 获取硬件版本
+    let hw_rev = regs.misc_revision.read(MISC_REVISION::MISC_REVISION) & 0xFFFF;
+    log::debug!("hw_rev: {}", hw_rev);
+
+    // 禁用和清除任何挂起的中断,保在 PCIe 控制器初始化的过程中，系统处于一个可控的状态
+    regs.msi_intr2_clr.write(MSI_INTR2_CLR::INTR_CLR::SET);
+    regs.msi_intr2_mask_set
+        .write(MSI_INTR2_MASK_SET::INTR_MASK_SET::SET);
+    log::debug!("disable and clear any pending interrupts");
+
+    // 初始化设置 SCB_MAX_BURST_SIZE 0x0, CFG_READ_UR_MODE, SCB_ACCESS_EN
+    regs.misc_misc_ctrl
+        .modify(MISC_MISC_CTRL::SCB_ACCESS_EN::SET);
+    regs.misc_misc_ctrl
+        .modify(MISC_MISC_CTRL::CFG_READ_UR_MODE::SET);
+    regs.misc_misc_ctrl
+        .modify(MISC_MISC_CTRL::MAX_BURST_SIZE::CLEAR);
+
+    // 设置入站内存视图
+    regs.misc_rc_bar2_config_lo
+        .write(MISC_RC_BAR2_CONFIG_LO::VALUE_LO::init_val);
+    regs.misc_rc_bar2_config_hi
+        .write(MISC_RC_BAR2_CONFIG_HI::VALUE_HI::init_val);
+    regs.misc_misc_ctrl
+        .modify(MISC_MISC_CTRL::SCB0_SIZE::init_val);
+
+    // 禁用 PCIe->GISB 内存窗口和 PCIe->SCB 内存窗口
+    regs.misc_rc_bar1_config_lo
+        .modify(MISC_RC_BAR1_CONFIG_LO::MEM_WIN::CLEAR);
+    regs.misc_rc_bar3_config_lo
+        .modify(MISC_RC_BAR3_CONFIG_LO::MEM_WIN::CLEAR);
+
+    // 设置 MSIs，清除中断，屏蔽中断
+    // CPU::MMIOWrite32(pcieBase + MSI_BAR_CONFIG_LO, (MSI_TARGET_ADDR & 0xFFFFFFFFu) | 1);
+    // CPU::MMIOWrite32(pcieBase + MSI_BAR_CONFIG_HI, MSI_TARGET_ADDR >> 32);
+    // CPU::MMIOWrite32(pcieBase + MSI_DATA_CONFIG, hwRev >= HW_REV_33 ? 0xffe06540 : 0xFFF86540);
+    // TODO: 在此注册 MSI 处理程序
+
+  
+
+    // 解除基本复位
+    // 在确认初始化步骤完成后，将 PCIe 控制器从基本复位状态恢复到正常工作状态
+    regs.perst_set(0);
+
+    // 等待 [0xfd504068] 的位 4 和 5 被设置，每隔 5000 微秒检查一次
+    for _ in 0..20 {
+        let val = regs.misc_pcie_status.read(MISC_PCIE_STATUS::CHECK_BITS);
+        log::trace!("val: {}", val);
+        if val == 0x3 {
+            break;
+        }
+        H::sleep(core::time::Duration::from_micros(5000));
+    }
+
+    // 检查链路是否正常
+    {
+        let val = regs.misc_pcie_status.read(MISC_PCIE_STATUS::CHECK_BITS);
+        if val != 0x3 {
+            panic!("PCIe link is down");
+        }
+    }
+
+    // 检查控制器是否运行在根复杂模式。如果位 7 未设置，则发生错误
+    {
+        let val = regs.misc_pcie_status.read(MISC_PCIE_STATUS::RC_MODE);
+        if val != 0x1 {
+            panic!("PCIe controller is not running in root complex mode");
+        }
+    }
+
+    log::debug!("PCIe link is ready");
+
+    // 配置出站内存
+    // 定义 PCIe 设备可以访问的一块内存区域，使 PCIe 设备可以读取或写入这个内存区域中的数据
+    regs.misc_cpu_2_pcie_mem_win0_lo
+        .write(MISC_CPU_2_PCIE_MEM_WIN0_LO::MEM_WIN0_LO::init_val);
+    regs.misc_cpu_2_pcie_mem_win0_hi
+        .write(MISC_CPU_2_PCIE_MEM_WIN0_HI::MEM_WIN0_HI::init_val);
+    regs.misc_cpu_2_pcie_mem_win0_base_limit
+        .write(MISC_CPU_2_PCIE_MEM_WIN0_BASE_LIMIT::MEM_WIN0_BASE_LIMIT::init_val);
+    regs.misc_cpu_2_pcie_mem_win0_base_hi
+        .write(MISC_CPU_2_PCIE_MEM_WIN0_BASE_HI::MEM_WIN0_BASE_HI::init_val);
+    regs.misc_cpu_2_pcie_mem_win0_limit_hi
+        .write(MISC_CPU_2_PCIE_MEM_WIN0_LIMIT_HI::MEM_WIN0_LIMIT_HI::init_val);
+
+    // 设置正确的 Class ID
+    regs.rc_cfg_priv1_id_val3
+        .modify(RC_CFG_PRIV1_ID_VAL3::CLASS_ID::pcie_pcie_bridge);
+
+   }
+}
+
+```
   
 
   
