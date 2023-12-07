@@ -27,7 +27,7 @@ PCIe桥针对每个连接的PCIe端口，使用PCI Express Configuration Space�
 
 以树莓派为例，对于连接在PCIe的 xhci 主机控制器，参考 [VL805 芯片手册](https://github.com/chenlongos/raspi4-with-arceos-doc/blob/master/src/assert/DS_VLI_VL805_093.pdf)，可以知晓其配置空间
 
-### PCI配置寄存器
+### PCI配置寄存器介绍
 
 #### Header Registers (00-3Fh)
 
@@ -385,7 +385,19 @@ PCIe桥针对每个连接的PCIe端口，使用PCI Express Configuration Space�
 
 
   
-### 树莓派Linux系统
+### 具体实例（树莓派Linux系统）
+
+输入`lspci`可以查看到关于pci的信息，得到如下输出：
+
+```shell
+pi@yahboom:~$ lspci
+00:00.0 PCI bridge: Broadcom Inc. and subsidiaries BCM2711 PCIe Bridge (rev 20)
+01:00.0 USB controller: VIA Technologies, Inc. VL805 USB 3.0 Host Controller (rev 01)
+```
+
+可以看到第一条为PCI主桥，第二条为连接在主桥的PCI设备，即 USB 3.0 主机控制器
+
+在输入`sudo lspci -xxxxx -s 01:00.0`可以查看关于 USB 3.0 主机控制器的寄存器信息，得到如下输出：
 
 ```shell
 pi@yahboom:~$ sudo lspci -xxxxx -s 01:00.0
@@ -401,6 +413,33 @@ pi@yahboom:~$ sudo lspci -xxxxx -s 01:00.0
 80: 01 90 c3 89 00 00 00 00 00 00 00 00 00 00 00 00
 90: 05 c4 85 00 fc ff ff ff 00 00 00 00 40 65 00 00
 ```
+
+由上述关于寄存器的介绍可知，
+
+* Header Registers (00-3Fh)
+  * 偏移量为00：0x3483_1106，表示厂商ID为0x3483和设备ID为0x1106
+  * 偏移量为04：0x100546，启用内存空间，启用总线主控，禁用I/O空间，启用奇偶校验错误的响应，启用SERR（系统错误），启用中断，启用PCI-PMI 功能
+  * 偏移量为08：0xc033001，表示 USB3.0 XHCI 主机控制器，硬件版本为1
+  * 偏移量为0c：0x1，表示缓存行大小为1
+  * 偏移量为10：0xc000_0004，表示基址的寻址模式为64位，XHCI 内存映射 I/O 寄存器的低基地址为0xC_0000
+  * 偏移量为14：0x0，表示XHCI 内存映射 I/O 寄存器的高基地址为0x0000_0000
+  * 偏移量为2c：0x3483_1106，表示子系统供应商ID为0x3483和子系统ID为0x1106
+  * 偏移量为34：0x80，表示第一个能力结构可以在设备配置空间的偏移地址0x80处
+  * 偏移量为3c：0x124，表示禁用 USB 中断
+
+* XHCI-Specific Configuration Registers (40-FFh)
+  * 偏移量为48：0xf097_7009，表示 USB 3.0 控制器（XHCI）中的 CRCR 镜像寄存器的低位部分为0xf097_7009
+  * 偏移量为50：0x138c0，表示 XHCI 控制器的固件版本为0x138c0
+  * 偏移量为5c：0x3483_1106，表示子系统供应商ID为0x3483和子系统ID为0x1106
+  * 偏移量为60：0x2030，0x30表示串行总线规范发布版本号，0x20表示SOF循环时间为60000
+  * 偏移量为78：0x30008，表示 XHCI 选项位配置地址为0x0003_0008
+  * 偏移量为7c：0x1800_0001，表示 XHCI 选项位配置数据为0x1800_0001
+  * 偏移量为80：0x89c3_9001，0x01表示功耗管理能力ID，0x90表示指向下个项目的指针，0x89c3-->?
+  * 偏移量为84：0x0，表示电源状态为 D0，即全功耗状态，禁用 PME 使能，不激活 PME 状态
+  * 偏移量为90：0x85c405，0x05表示 MSI 中断能力ID为0x05；0xc4表示指向下一个项目的指针；0x85表示 MSI 使能，请求的中断向量数量为4，支持64位地址功能
+  * 偏移量为94：0xffff_fffc，表示 MSI 消息地址的低32位为0xffff_fffc
+  * 偏移量为98：0x0，表示 MSI 消息地址的高32位为0x0000_0000
+  * 偏移量为9c：0x6540，表示系统指定的消息数据为0x6540
 
 
 
