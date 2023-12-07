@@ -16,7 +16,7 @@ PCIe（Peripheral Component Interconnect Express），是一种高速串行计�
 4. **热插拔支持：** PCIe支持热插拔，允许用户在计算机运行时插入或拔出PCIe设备，而无需重新启动计算机。
 5. **兼容性：** PCIe是一种通用的总线标准，广泛应用于各种设备，包括显卡、网卡、固态硬盘、扩展卡等。
 
-### 树莓派中Linux实现
+### 树莓派Linux中关于 PCIe 部分
 
 在树莓派Linux系统中，输入```cat /proc/iomem```，得到如下输出：
 
@@ -85,10 +85,18 @@ fec11000-fec1101f : fe100000.watchdog watchdog@7e100000
 
   
 
-## 关于 PCIe总线 的初始化
+## 关于 PCIe 总线的初始化
 
-### 树莓派
+  
+### 相关寄存器介绍
+
+  
+### 具体实例（树莓派Linux系统）
+
 ```shell
+pi@yahboom:~$ lspci
+00:00.0 PCI bridge: Broadcom Inc. and subsidiaries BCM2711 PCIe Bridge (rev 20)
+01:00.0 USB controller: VIA Technologies, Inc. VL805 USB 3.0 Host Controller (rev 01)
 pi@raspberrypi:~ $ sudo lspci -xxx -s 00:00.0
 00:00.0 PCI bridge: Broadcom Limited Device 2711 (rev 20)
 00: e4 14 11 27 46 01 10 00 20 00 04 06 10 00 01 00
@@ -108,10 +116,7 @@ d0: 1f 08 08 00 00 00 00 00 06 00 00 80 02 00 00 00
 e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 ```
-  
-### 相关寄存器介绍
 
-  
 
 ### 具体寄存器配置
 
