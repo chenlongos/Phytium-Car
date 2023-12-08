@@ -440,6 +440,7 @@ impl BCM2711PCIeHostBridgeRegs {
         .write(MISC_RC_BAR2_CONFIG_LO::VALUE_LO::init_val);
     regs.misc_rc_bar2_config_hi
         .write(MISC_RC_BAR2_CONFIG_HI::VALUE_HI::init_val);
+
     regs.misc_misc_ctrl
         .modify(MISC_MISC_CTRL::SCB0_SIZE::init_val);
 
@@ -461,7 +462,7 @@ impl BCM2711PCIeHostBridgeRegs {
     // 在确认初始化步骤完成后，将 PCIe 控制器从基本复位状态恢复到正常工作状态
     regs.perst_set(0);
 
-    // 等待 [0xfd504068] 的位 4 和 5 被设置，每隔 5000 微秒检查一次
+    // 检查 status 值 
     for _ in 0..20 {
         let val = regs.misc_pcie_status.read(MISC_PCIE_STATUS::CHECK_BITS);
         log::trace!("val: {}", val);
@@ -471,7 +472,7 @@ impl BCM2711PCIeHostBridgeRegs {
         H::sleep(core::time::Duration::from_micros(5000));
     }
 
-    // 检查链路是否正常
+    // 检查 status 值
     {
         let val = regs.misc_pcie_status.read(MISC_PCIE_STATUS::CHECK_BITS);
         if val != 0x3 {
@@ -479,7 +480,7 @@ impl BCM2711PCIeHostBridgeRegs {
         }
     }
 
-    // 检查控制器是否运行在根复杂模式。如果位 7 未设置，则发生错误
+    // 检查控制器是否运行在根复杂模式
     {
         let val = regs.misc_pcie_status.read(MISC_PCIE_STATUS::RC_MODE);
         if val != 0x1 {
@@ -489,7 +490,6 @@ impl BCM2711PCIeHostBridgeRegs {
 
     log::debug!("PCIe link is ready");
 
-    // 配置出站内存
     // 定义 PCIe 设备可以访问的一块内存区域，使 PCIe 设备可以读取或写入这个内存区域中的数据
     regs.misc_cpu_2_pcie_mem_win0_lo
         .write(MISC_CPU_2_PCIE_MEM_WIN0_LO::MEM_WIN0_LO::init_val);
