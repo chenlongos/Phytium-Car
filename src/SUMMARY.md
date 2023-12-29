@@ -1,8 +1,8 @@
 # Summary
-- [学习指南](./chapter_0.md)
+- [学习指南](./chapter_0.0.md)
 - [USB驱动开发](./chapter_3.0.md)
   - [以树莓派为例](./chapter_3.1.md)
-  - [任务一：PCIe 主桥的初始化](./chapter_3.1.md)
+  - [任务一：PCIe 主桥的初始化](./chapter_1.2.md)
   - [任务二：PCIe 主桥枚举设备，发现 USB 3.0 主机控制器](./chapter_3.2.md)
   - [任务三：对发现的主机控制器分配内存空间](./chapter_3.3.md)
   - [任务四：usb3.0 主机控制器的初始化](./chapter_3.4.md)
