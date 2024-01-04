@@ -2,7 +2,9 @@
 
 ## 树莓派
 
-![image-20231225112317456](C:\Users\张江鹏\AppData\Roaming\Typora\typora-user-images\image-20231225112317456.png)
+关于树莓派方面可查看：<https://chenlongos.com/raspi4-with-arceos-doc/> 
+
+![image-20231225112317456](https://github.com/apengaaa/usb-doc/blob/master/src/assert/1.1-1.png)
 
 1. **架构：** BCM2711 使用 ARM Cortex-A72 架构的四核心处理器。Cortex-A72 是 ARM 的 64位处理器架构，提供高性能的计算能力。
 
@@ -28,7 +30,7 @@
 
 ## 树莓派各类接口
 
-![image-20231225113108700](C:\Users\张江鹏\AppData\Roaming\Typora\typora-user-images\image-20231225113108700.png)
+![image-20231225113108700](https://github.com/apengaaa/usb-doc/blob/master/src/assert/1.1-2.png)
 
 从图中可以看到，树莓派的4个USB接口分别为2个USB2.0和2个USB3.0接口，它们由VL805这颗芯片控制，其又连接在树莓派的PCIe接口上。
 
@@ -37,4 +39,6 @@
 1. PCIe总线
 2. USB总线
 3. 设备驱动
+
+
 
