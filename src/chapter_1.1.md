@@ -6,6 +6,8 @@
 
 ![image-20231225112317456](https://github.com/apengaaa/usb-doc/blob/master/src/assert/1.1-1.png)
 
+[测试环境](https://github.com/arceos-usb/arceos_experiment/tree/usb-next/apps/boards/raspi4-usb)
+
 1. **架构：** BCM2711 使用 ARM Cortex-A72 架构的四核心处理器。Cortex-A72 是 ARM 的 64位处理器架构，提供高性能的计算能力。
 
 2. **处理器核心：** 四个 Cortex-A72 处理器核心，时钟频率通常为 1.5 GHz。
