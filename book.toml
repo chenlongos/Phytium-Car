@@ -4,7 +4,7 @@ language = "en"
 create-missing = true
 multilingual = false
 src = "src"
-title = "usb-doc"
+title = "Phytium-Car"
 
 [output.html]
 site-url = "/Phytium-Car/"
