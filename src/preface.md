@@ -18,7 +18,8 @@ ArceOS是一个基于Rust语言的Unikernel，它的目标是为云计算平台�
 
 ## 时间安排
 
-![image](https://github.com/chenlongos/Phytium-Car/assets/83756052/f059a4be-9f5e-4235-b420-dfbe1f88bf37)
+![image](https://github.com/chenlongos/Phytium-Car/assets/83756052/1a5774cd-f9e2-4e1e-bf79-e9de3c644b39)
+
 
 
 
