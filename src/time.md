@@ -1,4 +1,4 @@
 # 时间安排
 
-![image](https://github.com/chenlongos/Phytium-Car/assets/83756052/f059a4be-9f5e-4235-b420-dfbe1f88bf37)
+![image](https://github.com/chenlongos/Phytium-Car/assets/83756052/12537bf7-8b81-49a6-ba1e-46444675aaf7)
 
