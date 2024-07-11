@@ -4,6 +4,7 @@
 - [介绍](./introduce.md)
 - [环境配置](./setup.md)
 - [时间安排](./time.md)
+- [导学阶段：ArceOS基础](./ch0-0.md)
 - [基础阶段：ArceOS在飞腾派上的移植与适配](./ch1-0.md)
   - [ArceOS如何在飞腾派上运行](./ch1-1.md)
   - [I2C驱动](./ch1-2.md)
