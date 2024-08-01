@@ -1,5 +1,12 @@
 # 前言
 
+## 资料包下载：
+这里是我们这次训练营所需要的所有资料包，有多个分发链接：
+* Onedrive：https://1drv.ms/u/s!AooWhIO43OtzgtNA590N3-cJrjZD6w?e=sgTHSY
+* 百度云盘：
+链接：https://pan.baidu.com/s/1oy_KtTddgqGQ0aojsfQszQ?pwd=z7nj 
+提取码：z7nj 
+
 ## 简介
 
 本次飞腾训练营是围绕以飞腾派开发板为核心的飞腾小车展开一系列的包括ArceOS操作系统内核、驱动以及算法等内容的学习与实现。
