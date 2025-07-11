@@ -8,3 +8,4 @@ title = "飞腾派智能小车开发指导书"
 
 [output.html]
 site-url = "/Phytium-Car/"
+no-section-label = true
