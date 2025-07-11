@@ -1,10 +1,10 @@
 [book]
-authors = [""]
+authors = ["opencmap 训练营社区"]
 language = "en"
 create-missing = true
 multilingual = false
 src = "src"
-title = "Phytium-Car"
+title = "飞腾派智能小车开发指导书"
 
 [output.html]
 site-url = "/Phytium-Car/"
