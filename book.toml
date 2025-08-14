@@ -10,3 +10,5 @@ title = "飞腾派智能小车开发指导书"
 site-url = "/Phytium-Car/"
 no-section-label = true
 mathjax-support = true
+
+[preprocessor.katex]
